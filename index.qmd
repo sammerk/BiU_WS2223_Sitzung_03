@@ -1,0 +1,165 @@
+---
+title: "Vorlesung"
+subtitle: "Statistik"
+author: "Samuel Merk"
+format: 
+  revealjs:
+    title-slide-attributes:
+      data-background-image: img/sash.svg
+      data-background-size: 30%
+      data-background-position: 0 0
+    slide-number: true
+    controls: true
+    logo: img/PHlogo.svg
+    theme: [dark, css/custom.scss]
+    chalkboard:
+      theme: whiteboard
+      boardmarker-width: 3
+      buttons: true
+      chalk-effect: 0
+    fullscreen: true
+    pdfexport: true
+bibliography: /Users/samuelmerk/Meine Ablage/Uni_gdrive/zotero-library/zotero_references.bib
+csl: /Users/samuelmerk/Meine Ablage/Uni_gdrive/zotero-library/apa.csl
+editor_options: 
+  chunk_output_type: console
+---
+
+
+## Herzlich willkommen!  [{{< fa door-open >}}]{.imp} {.center}
+
+```{r hidden chunk which creates template stuff}
+#| echo: false
+
+## in terminal ########
+# quarto install extension quarto-ext/fontawesome
+# quarto install extension schochastics/academicons
+#
+
+########################
+library(fontawesome)
+library(tidyverse)
+set.seed(848265)
+
+# Change css to lecker PH green
+if(!dir.exists("img"))
+dir.create("img")
+if(!dir.exists("css"))
+dir.create("css")
+fileConn<-file("css/custom.scss")
+writeLines(c("/*-- scss:defaults --*/",
+             "$link-color: #8cd000 !default;"), fileConn)
+close(fileConn)
+
+# create sash with URL
+sash <- 
+  ggplot() + 
+  geom_polygon(data = tibble(x = c(0,4,5.5,0),
+                             y = c(1,5,5,-.5)),
+               aes(x,y), fill = "#8cd000") + 
+  coord_fixed() +
+  annotate(geom = "text", 
+           label = " www.ph-ka.de", 
+           x = .8, y = .8, 
+           angle = 45,
+           hjust = 0, vjust = 0,
+           size = 10,
+           color = "white") +
+ theme_void() + 
+ theme(plot.margin = margin(-2,0,0,-12, unit = "cm"))
+ggsave("img/sash.svg", sash)
+```
+
+```{css}
+.imp {
+  color: #8cd000;
+}
+
+.em08{
+  font-size: .8em;
+}
+.em07{
+  font-size: .7em;
+}
+
+
+figure>figcaption {
+    margin-top: 0.5em;
+    text-align: center;
+}
+
+.citation {
+  font-size: .8em;
+  color: #8cd000;
+}
+
+  
+```
+
+
+## [{{< fa clipboard-list >}}]{.imp} Was haben wir heute vor? {.center}
+* Fragen und Antworten zu Aufgaben und Videos
+* Vertiefung: Implizite Messungen
+* Übung I: Fragebogenskalen recherchieren
+* Übung II: Rettung schlechter Fragebogenitems 
+
+## Fragen und Antworten zu Video und Aufgaben
+> Stellen Sie Ihre Fragen zu Video und Aufgaben unter [https://frag.jetzt/participant/room/BiU_Statistik](https://frag.jetzt/participant/room/BiU_Statistik)
+
+
+## Vertiefung: Implizite Messungen {.center}
+
+## Beispielstudie: Körner et al (2022) {.smaller}
+*Pressemitteilung: https://bit.ly/merk057*  
+Körner, A., Abraham, B., Rummer, R., & Strack, F. (2022). Gender Representations Elicited by the Gender Star Form. Journal of Language and Social Psychology, 0261927X2210801. https://doi.org/10.1177/0261927X221080181
+
+<center>
+<iframe id="frame01" src='https://www.uni-kassel.de/uni/aktuelles/meldung/2022/03/2/psycholinguistik-das-gender-sternchen-laesst-uns-bevorzugt-an-frauen-denken?cHash=0b83861f337f2eb6e520fd33b0b7d4d3'></iframe>
+</center>
+<style>
+#frame01{ height: 440px; width: 1200px; align: center; overflow: scroll;}
+</style>
+
+
+## Körner et al (2022)
+
+<embed src="Korner_et_al_2022.pdf" width="500" height="1200" 
+ type="application/pdf">
+
+
+## Parterarbeit: {.smaller}
+Machen Sie sich gemeinsam mit der Sitznachbarin oder dem Sitznachbarn mit dem Design der Studie von Körner et al (2022) vertraut und beantworten Sie anschließen für sich die folgenen Fragen:
+
+* Welche Designaspekte der Studie steigern die Objektivität, welche senken sie?
+* Wie kann die Reliabilität in diesem Design gesteigert werden?
+* Was bedeutet Konstruktvalidität in diesem Fall?
+   * Was genau wird gemessen?
+   * Wie werden diese Messwerte interpretiert?
+   * Ist diese Interpretation angemessen?
+   
+## Übung I: Instrumente recherchieren {.center}
+
+## Again: (Lecker) Gruppenarbeit {.smaller}
+> Ziel der Gruppenarbeit soll sein, Repositorien für sozialwissenschaftliche Instrumente kennzulernen.
+
+```{r}
+library(tidyverse)
+Studis <- c("Andreas", "Anna", "Beatrice", "Dora", "Emily", "Fabienne", "Felix", "Finn", "Franziska", "Franziska", "Helene", "Imke", "Joshua", "Judith", "Julian", "Kai", "Levina", "Louisa", "Miriam", "Nadia", "Odile", "Kieran", "Rebecca ", "Verena")
+
+Studis_shuffled <- sample(Studis, 24)
+
+tibble(
+  Gruppe1 = Studis_shuffled[1:4],
+  Gruppe2 = Studis_shuffled[5:8],
+  Gruppe3 = Studis_shuffled[9:12],
+  Gruppe4 = Studis_shuffled[13:16],
+  Gruppe5 = Studis_shuffled[17:20],
+  Gruppe6 = Studis_shuffled[21:24],
+) %>% 
+  knitr::kable()
+```
+<br>
+Einigen Sie sich innerhalb der Gruppen auf eine zu messende Variable und suchen Sie zunächst unabhängig voneinander nach aktuellen & psychometrisch hochwertigen (Fragebogen-)Instrumenten dazu. Stellen Sie sich die Instrumente kurz innerhalb der Gruppe vor und notieren Sie das Instrument samt seinen antizipierten Stärken und Schwächen unter [https://bit.ly/merk058](https://bit.ly/merk058) (20 Min.).
+
+## Übung II: Rettung schlechter Fragebogenitems {.center}
+Schauen Sie auf die letzte der Folien zum Erklärvideo. Konstruieren Sie ein oder mehrere schlechte Fragebogenitems entlang dieser (oder anderer) Kriterien. Tragen Sie es unter https://bit.ly/merk059 ein und »retten« Sie schlechte Fragebogenitems der anderen Gruppen.
